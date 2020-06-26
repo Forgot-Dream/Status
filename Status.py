@@ -18,7 +18,8 @@ def on_info(server ,info):
     if not info.is_user:
         return
         
-    print_message(server,info)
+    if len(command) == 0:
+        print_message(server,info)
     
 def on_load(server ,old):
     server.add_help_message('!!status', '获取服务器状态信息')
@@ -39,7 +40,6 @@ def print_message(server,info):
     server.reply(info ,u"CPU使用率:§e %s" % cpu, encoding=None)
 
     #查看内存信息,剩余内存.free  总共.total
-    #round()函数方法为返回浮点数x的四舍五入值。
      
     free = str(round(psutil.virtual_memory().free / (1024.0 * 1024.0 * 1024.0), 2))
     total = str(round(psutil.virtual_memory().total / (1024.0 * 1024.0 * 1024.0), 2))
@@ -55,8 +55,6 @@ def print_message(server,info):
     bytes_sent = '{0:.2f} Mb'.format(net.bytes_recv / 1024 / 1024)
     bytes_rcvd = '{0:.2f} Mb'.format(net.bytes_sent / 1024 / 1024)
     server.reply(info ,u"网卡接收流量§e %s §r网卡发送流量§e %s" % (bytes_rcvd, bytes_sent), encoding=None)
-
-    io = psutil.disk_partitions()
 
     server.reply(info ,'---------存档信息---------', encoding=None)
     WorldSize = getFileSize(WorldPath)

@@ -20,6 +20,9 @@ def on_info(server ,info):
         
     print_message(server,info)
     
+def on_load(server ,old):
+    server.add_help_message('!!status', '获取服务器状态信息')
+    
     
 def print_message(server,info):    
     server.reply(info ,'获取系统信息中，请稍后...', encoding=None)
@@ -56,8 +59,8 @@ def print_message(server,info):
     io = psutil.disk_partitions()
 
     server.reply(info ,'---------存档信息---------', encoding=None)
-    WorldSize = round(getFileSize(WorldPath))
-    server.reply(info ,u"存档大小§e %s §rMB" % (WorldSize / 1024 / 1024 ), encoding=None)
+    WorldSize = getFileSize(WorldPath)
+    server.reply(info ,'存档大小§e {0:.2f} §rMB'.format(WorldSize / 1024 / 1024), encoding=None)
     
     
 
